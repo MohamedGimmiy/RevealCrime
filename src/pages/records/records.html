@@ -1,0 +1,58 @@
+<!--
+  Generated template for the RecordsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar hideBackButton>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
+    <ion-title>records</ion-title>
+  </ion-navbar>
+  <ion-toolbar style="background-color: rgb(88, 83, 83); border: 1px solid white;">
+        <span style="color:rgb(255, 255, 255); font-size: 15px;">sort by:</span>
+            <button ion-button   style="float:right;" outline small color="light" (click)="viewis(0)">
+                    <ion-icon name="list"></ion-icon>
+              </button>
+              <button ion-button outline style="float:right;" small color="light" (click)="viewis(1)"> 
+                    <ion-icon name="apps"></ion-icon>
+              </button>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-row *ngIf="!Listing">
+        <ion-col col-3 *ngFor="let mission of missions ; let i = index ;" (click)="Mission_records(mission , i)">
+            <ion-card>
+                <img src="../../assets/imgs/background2.png" alt="">
+                  <ion-card-content>
+                      {{ mission?.name }}
+                  </ion-card-content>
+              </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-list *ngIf="Listing">
+            <ion-item *ngFor="let mission of missions ; let i = index ;" (click)="Mission_photos(mission , i)">
+              <ion-avatar item-start>
+                <img src="../../assets/imgs/background2.png">
+              </ion-avatar>
+              <h2>{{ mission?.name }}</h2>
+              <p>{{mission?.description}}</p>
+            </ion-item>
+    </ion-list>
+<!--     ion-item 
+ -->  <!----------------list of missions---------------------->
+<!--   <ion-list >  
+    <ion-item *ngFor="let mission of missions ; let i = index ;" (click)="Mission_records(mission , i)">
+        <ion-avatar item-start>
+        </ion-avatar>
+        <h2>{{ mission?.name }}</h2>
+        <h3>Created at : </h3>
+        <p>{{mission?.description}}</p>
+    </ion-item>
+  </ion-list> -->
+</ion-content>

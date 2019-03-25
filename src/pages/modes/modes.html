@@ -1,0 +1,48 @@
+
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-title>{{mission_name?.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="mybackground">
+    <ion-row style="height: 52%">
+        <ion-col col-6 style="background-color: rgb(4, 49, 87); border-right: 1px solid rgb(243, 236, 236); display: flex; align-items: center; justify-content: center;">
+    <!--         <button round style="height: 10rem;" ion-button (click)="doFunction(1)" full color="primary">
+            </button> -->
+            <ion-icon (click)="doFunction(1)" name="videocam" style="  margin: 0 auto; display: block; width: 50%; text-align: center; font-size: 5rem"></ion-icon>
+        </ion-col>
+        <hr style="height: 100%; color: white;">
+        <ion-col col-6 style="background-color: rgb(97, 18, 57); display: flex; align-items: center; justify-content: center;">
+    <!--         <button round style="height: 10rem;" ion-button (click)="doFunction(2)" full color="primary">
+            </button> -->
+            <ion-icon (click)="doFunction(2)" style="margin: 0 auto; display: block; width: 50%; text-align: center; font-size: 5rem" name="camera"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row style="height: 48%">
+        <ion-col style="background-color: rgb(155, 87, 4); border-right: 1px solid rgb(243, 236, 236); border-top: 1px solid rgb(243, 236, 236); display: flex; align-items: center; justify-content: center;">
+            <!-- <button round ion-button style="height:10rem;" (click)="doFunction(3)" full color="primary">
+            </button> -->
+            <ion-icon (click)="doFunction(3)" style="  margin: 0 auto; display: block; width: 50%; text-align: center; font-size: 5rem" name="mic"></ion-icon>
+        </ion-col>
+        <ion-col style="background-color: rgb(18, 75, 75); border-top: 1px solid rgb(243, 236, 236); display: flex; align-items: center; justify-content: center;">
+            <!-- <button round ion-button style="height:10rem;" (click)="doFunction(4)" full color="primary">
+            </button> -->
+            <ion-icon (click)="doFunction(4)" style="  margin: 0 auto; display: block; width: 50%; text-align: center; font-size: 5rem" name="call"></ion-icon>
+        </ion-col>
+      </ion-row>    
+    
+    
+    <!--   <ion-list >
+        <ion-item>
+    
+        </ion-item>
+        <ion-item >
+        </ion-item>
+        <ion-item>
+        </ion-item>
+      </ion-list> -->
+</ion-content>

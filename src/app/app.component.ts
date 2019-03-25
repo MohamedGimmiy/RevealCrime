@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { text } from '@angular/core/src/render3/instructions';
+import { MissionDbSqlLitProvider } from '../providers/mission-db-sql-lit/mission-db-sql-lit';
+import { Events } from 'ionic-angular';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 
 @Component({
   templateUrl: 'app.html'
@@ -12,33 +13,79 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = 'HomeTwoPage';
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: string , icons : string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, 
+              public statusBar: StatusBar, 
+              public splashScreen: SplashScreen,
+              private alertCtr : AlertController,
+              public Missionsql : MissionDbSqlLitProvider,
+              public events : Events) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
-    ];
-
+      { title: 'Home', component: 'HomeTwoPage' , icons : 'home' },
+      { title: 'Missions', component: 'MissionsPage' , icons : 'albums' },
+      { title: 'Videos', component: 'VideosPage' , icons:'videocam' },
+      { title: 'pictures', component: 'PicturesPage' , icons : 'images' },
+      { title: 'Records', component: 'RecordsPage' , icons : 'microphone' },
+      {title : 'PhoneNumbers', component : 'PhonesPage' , icons : 'contacts'},
+/*       { title: 'Settings', component: 'SettingsPage' },
+ */        ];
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      // ------------- initialize database --------------------- //
+      // return back
+      this.Missionsql.initializeDataBase().then(()=>{
+        this.events.publish('initOfDatabase');
+
+        this.rootPage = 'HomeTwoPage';
+        console.log("Init");
+      });
     });
+
+
+
+
   }
 
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  //------------------ close ionic application -------------------- //
+  close(){
+    let alert =this.alertCtr.create({
+      title : "Exite",
+      message :"Do you want to Exite",
+      buttons :[{
+        text : "Yes",
+        handler:()=>{
+          this.platform.exitApp();
+        }
+      },
+      {
+        text :  "No",
+        role : "cancel",
+        handler :()=>{
+          console.log("Error Connection");
+        }
+      }
+
+      ]
+    });
+
+    alert.present();
   }
 }

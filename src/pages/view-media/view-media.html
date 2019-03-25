@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button clear>
+      <ion-icon color="light" name="arrow-round-back" (click)="returning()"> viewMedia</ion-icon>
+    </button>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+    <ion-content padding overflow-scroll="true">
+      <!----------------list of missions---------------------->
+    
+      <ion-row>
+        <ion-col col-3 *ngFor="let media of mediaArray ; let i = index ;" (click)="displayMedia(media , i) ">
+
+          <ion-card *ngIf="allMedia?.type == 'records'">
+            <img src="../../assets/imgs/record.png" alt="">
+            <ion-card-content>
+                  {{ media?.name}}
+            </ion-card-content>
+          </ion-card>
+
+
+
+          <ion-card *ngIf="allMedia?.type == 'videos'">
+              <img src="../../assets/imgs/video.png" alt="">
+              <ion-card-content>
+                  {{ media?.name}}
+              </ion-card-content>
+          </ion-card>
+
+
+            
+            <ion-card *ngIf="allMedia?.type == 'pictures'">
+              <img src="../../assets/imgs/jpg.png" alt="">
+                <ion-card-content>
+                    {{ media?.name}}
+                </ion-card-content>
+            </ion-card>
+
+        </ion-col>
+      </ion-row>
+
+
+
+
+
+<!--       <div *ngIf="allMedia?.type == 'videos'">
+        <video #vid  class="video-player"  controls autoplay="true">
+           <source [src]="videosrc" type="video/mp4">
+         </video> -->
+<!--           <video controls="controls" preload="metadata" autoplay="autoplay" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+            <source src="https://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4" type="video/mp4"/>
+          </video> -->
+        
+<!--        <video controls="controls" preload="metadata" autoplay="autoplay" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+           <source src="{{videosrc}}" type="video/mp4" />
+        </video> -->
+<!--       </div>
+ -->    
+    </ion-content>

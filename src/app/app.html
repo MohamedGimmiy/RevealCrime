@@ -1,14 +1,21 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" id="MyMenu">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-title></ion-title>
+      <img src="../assets/imgs/Untitled-3.png" alt="">
+
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon name="{{p.icons}}" style="margin-right:2rem;"></ion-icon>
         {{p.title}}
+      </button>
+      <button menuClose ion-item (click)="close()">
+        <ion-icon name="exit" style="margin-right:2rem;"></ion-icon>
+        Exite
       </button>
     </ion-list>
   </ion-content>

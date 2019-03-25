@@ -1,0 +1,43 @@
+page-view-media {
+ .video-player {
+    width: 100%;
+    height: 100%;
+  }
+
+  *{
+    font-size: 2rem;
+  }
+.records{
+    background-image: url('../../assets/imgs/record.png');
+    background-size: contain;
+    height: 5rem;
+    width: 3rem;
+    background-repeat: no-repeat;
+}
+ion-avatar{
+    
+    width:100% !important;  
+    height : 100% !important;  
+    max-width: 50px !important;  //any size
+    max-height: 50px !important; //any size 
+    
+}
+.pictures{
+  background-image: url('../../assets/imgs/video.png');
+  background-size: contain;
+  height: 5rem;
+  width: 3rem;
+  background-repeat: no-repeat;
+}
+.videos{
+  background-image: url('../../assets/imgs/video.png');
+  background-size: contain;
+  height: 5rem;
+  width: 3rem;
+  background-repeat: no-repeat;
+}
+
+
+
+
+}

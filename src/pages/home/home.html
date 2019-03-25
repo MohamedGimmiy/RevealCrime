@@ -3,16 +3,31 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title></ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content padding class="dec">
+  <ion-row>
+    <ion-col text-center>
+      <img src="../../assets/imgs/Untitled-3.png" alt="" width="100%" height="75%">
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col text-center>
+      <button ion-button style="padding: 3rem 5rem;"  color="primary" round  (click)="navigate(1)">Start a mission</button>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col text-center>
+      <button ion-button color="light" style="padding: 3rem 5rem;" round   (click)="navigate(2)">How it works !</button>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col text-center>
+      <button ion-button color="danger" style="padding: 3rem 5rem ;" round  (click)="navigate(3)">Exite</button>
+    </ion-col>
+  </ion-row>
 </ion-content>
