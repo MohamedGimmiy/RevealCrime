@@ -90,7 +90,7 @@ export class HomeTwoPage {
       inputs: [
         {
           name: 'missionname',
-          placeholder: 'Mission name'
+          placeholder: 'Mission name',
         },
         {
           name: 'description',

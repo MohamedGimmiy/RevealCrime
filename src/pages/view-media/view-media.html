@@ -1,7 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button clear>
-      <ion-icon color="light" name="arrow-round-back" (click)="returning()"> viewMedia</ion-icon>
+    <button ion-button clear icon-start (click)="returning()">
+      <ion-icon color="blue" name="arrow-round-back"> 
+      </ion-icon>
+        <div *ngIf="allMedia?.type == 'videos'">Videos</div>
+        <div *ngIf="allMedia?.type == 'pictures'">pictures</div>
+        <div *ngIf="allMedia?.type == 'records'">records</div>
     </button>
     <ion-title></ion-title>
   </ion-navbar>

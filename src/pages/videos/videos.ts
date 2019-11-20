@@ -25,14 +25,17 @@ export class VideosPage {
     this.sqlMission.getAllMissions().then(data=> {
       this.missions = data ;
     });
-    
   }
+
+
   viewis(para){
     if(para == 0)
       this.Listing = false;
     else
       this.Listing = true;
   }
+
+  
   Mission_videos(mission , i){
     mission.type = "videos";
 

@@ -16,7 +16,6 @@ import { VideoPlayer } from '@ionic-native/video-player';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 /* import {FileOpener} from '@ionic-native/file-opener';
  */import { CallNumber } from '@ionic-native/call-number';
-
 @NgModule({
   declarations: [
     MyApp

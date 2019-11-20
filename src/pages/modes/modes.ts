@@ -7,6 +7,7 @@ import { MissionDbSqlLitProvider } from '../../providers/mission-db-sql-lit/miss
 
 import moment from 'moment';
 
+
 @IonicPage()
 @Component({
   selector: 'page-modes',
@@ -22,6 +23,7 @@ export class ModesPage {
 
   mission_name : any;
   mission_id : any;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public file : File,
@@ -36,6 +38,10 @@ export class ModesPage {
                   this.mission_id = data.id;
                 });  
   }
+
+
+
+
 
   ionViewDidLoad() {
   }
@@ -107,16 +113,16 @@ export class ModesPage {
     this.audio.stopRecord();
     this.recording = false;
   }
-
-  // ------------------------------- capture images && video---------------------- //
+  
+  // ------------------------------- capture video---------------------- //
+  // TODO capture image does not work properly
   captureImageVideo(num){
     // if video capture it else capture an image
-    let chocie = num == 1 ? this.mediaCapture.captureVideo() : this.mediaCapture.captureImage();
-    
+    let chocie = num ==1 ?this.mediaCapture.captureVideo() : this.mediaCapture.captureImage() ;
+    console.log("capturing........")
     chocie.then((res : MediaFile [])=>{
-
+      console.log("capturing 2...........");
       let capturedVideoImage = res[0];
-
 
       //-------------------------- App root ------------------------------//
       let appPath = this.file.createDir(this.file.externalRootDirectory , 'RevealCrime',true);
@@ -137,23 +143,28 @@ export class ModesPage {
             let fromDirectory = fullPathO.join('/');
             let fileName = capturedVideoImage.name; // file name
 
-            // --------------- insert video or image -----------//
-            if(num == 1){
+            // --------------- insert video -----------//
+            if(num ==1){
               let date = new Date();
               let mydate = date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear();
               mydate = moment(mydate).format('MMMM Do YYYY, h:mm:ss a');
               this.sql.InsertAvideo(this.mission_id,fileName,fullPath,mydate);
             }
-            else{
-              let date = new Date();
+             else{
+              console.log("Insert a Photo");
+               let date = new Date();
               let mydate = date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear();
               mydate = moment(mydate).format('MMMM Do YYYY, h:mm:ss a');
-              this.sql.InsertAphoto(this.mission_id,fileName,fullPath,date);
-            }
+              this.sql.InsertAphoto(this.mission_id,fileName,fullPath,mydate); 
+            } 
 
             //--------------- moving a file to new path ------------------ //
+            // this line , it will be removed in other devices
             this.file.moveFile(fromDirectory ,fileName ,fullPath , fileName ).then(()=>{
-            });
+              console.log("moved successfully");
+            }).catch(err=>{
+              console.log("error coulding move file   ",err)
+            })
 
           });
         });
