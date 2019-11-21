@@ -141,7 +141,7 @@ export class ViewMediaPage {
 
   // --------------------- image viewing --------------------//
   viewAnImage(media , i){
-    let ImagePath = media.url + media.name;
+    let ImagePath = media.url;
     this.photo.show(ImagePath , 'Images', {share : true});
   }
   // -------------------- returning -----------------------//

@@ -92,7 +92,7 @@ export class MissionDbSqlLitProvider {
     })
   }
 
-  // ---------------- get all videos ----------------------- //
+  // ---------------- get all videos ---------------- //
   getvideos(id){
 
     return this.db.executeSql('select * from videos  where mid=?',[id])

@@ -16,6 +16,7 @@ import { VideoPlayer } from '@ionic-native/video-player';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 /* import {FileOpener} from '@ionic-native/file-opener';
  */import { CallNumber } from '@ionic-native/call-number';
+ import {Camera} from '@ionic-native/camera';
 @NgModule({
   declarations: [
     MyApp
@@ -36,6 +37,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
     CallNumber,
     SQLite,
     File,
+    Camera,
   //  FileOpener,
     PhotoViewer,
     VideoPlayer,

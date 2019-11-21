@@ -4,8 +4,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { File, FileEntry } from '@ionic-native/file';
 import { MissionDbSqlLitProvider } from '../../providers/mission-db-sql-lit/mission-db-sql-lit';
 import { Media, MediaObject } from '@ionic-native/media';
-import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
-
+import { MediaCapture, MediaFile } from '@ionic-native/media-capture';
+import {Camera, CameraOptions} from '@ionic-native/camera';
 import moment from 'moment';
 
 
@@ -38,6 +38,7 @@ currentMission : any;
               public media : Media,
               public mediaCapture : MediaCapture,
               public sql :MissionDbSqlLitProvider,
+              public cam : Camera
               ) {
                 this.continue = this.navParams.data.flage;
                 console.log(this.continue);
@@ -63,7 +64,7 @@ currentMission : any;
         alert("please select a mission");
         return;
       }
-        this.captureImageVideo(num);
+        this.captureVideo();
     } 
     else if(num == 2){ // camera
         console.log("camera");
@@ -71,7 +72,7 @@ currentMission : any;
           alert("please select a mission");
           return;
         }
-        this.captureImageVideo(num);
+        this.captureImage();
     }
     else if (num == 3){ // record
         console.log("record");
@@ -104,6 +105,7 @@ currentMission : any;
       console.log("share on social media");
     }
   }
+ 
 
   stopRecord() {
     this.audio.stopRecord();
@@ -145,18 +147,18 @@ startRecord(){ // for android only
 }
 
   // ------------------------------- capture images && video---------------------- //
-  captureImageVideo(num){
+  captureVideo(){
     // if video capture it else capture an image
-    let chocie = num == 1 ? this.mediaCapture.captureVideo() : this.mediaCapture.captureImage();
+    let chocie = this.mediaCapture.captureVideo();
     
     chocie.then((res : MediaFile [])=>{
 
-      let capturedVideoImage = res[0];
+      let capturedVideo = res[0];
       //-------------------------- App root ------------------------------//
       let appPath = this.file.createDir(this.file.externalRootDirectory , 'RevealCrime',true);
 
       appPath.then(EntryUrl=>{
-        let path = num == 1 ? 'Myvideos' : 'Myphotos';
+        let path = 'Myvideos';
         EntryUrl.getDirectory(path,{create : true},dir2=>{
           console.log("name*******************",this.missions[this.missioninfo].name)
           dir2.getDirectory(this.missions[this.missioninfo].name , {create : true},dir3=>{
@@ -165,25 +167,24 @@ startRecord(){ // for android only
             let fullPath =  dir3.toURL(); // full path till folder of mission
 
             // --------------- processing video && Image full path url ------------//
-            let fullPathO = capturedVideoImage['localURL'].split('/');
+            let fullPathO = capturedVideo['localURL'].split('/');
             fullPathO.pop(); // remove video name
 
             let fromDirectory = fullPathO.join('/');
-            let fileName = capturedVideoImage.name; // file name
+            let fileName = capturedVideo.name; // file name
 
             // --------------- insert video or image -----------//
-            if(num == 1){
               let date = new Date();
               let mydate = date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear();
               mydate = moment(mydate).format('MMMM Do YYYY, h:mm:ss a');
                 this.sql.InsertAvideo(this.missions[this.missioninfo].id,fileName,fullPath,mydate);
-            }
-            else{
+            
+/*             else{
               let date = new Date();
               let mydate = date.getDate()+'/'+date.getMonth()+'/'+date.getFullYear();
               mydate = moment(mydate).format('MMMM Do YYYY, h:mm:ss a');
                 this.sql.InsertAphoto(this.missions[this.missioninfo].id,fileName,fullPath,date);
-            }
+            } */
             //--------------- moving a file to new path ------------------ //
             this.file.moveFile(fromDirectory ,fileName ,fullPath , fileName ).then(()=>{
             });
@@ -195,13 +196,29 @@ startRecord(){ // for android only
   }
 
 
+  captureImage() {
+    const cameraOptions: CameraOptions = {
+      quality: 100,
+      destinationType: this.cam.DestinationType.DATA_URL,
+      encodingType: this.cam.EncodingType.JPEG,
+      mediaType: this.cam.MediaType.PICTURE,
+      targetHeight: 250,
+      correctOrientation: true,
+      sourceType: this.cam.PictureSourceType.CAMERA
+    }
 
+    this.cam.getPicture(cameraOptions).then(imageData => {
+      const image = 'data:image/jpeg;base64,' + imageData;
 
-
-
-
-
-
+      // saving our picture into sqlite database
+      let date = new Date();
+      let mydate = date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
+      let fileName = mydate;
+      mydate = moment(mydate).format('MMMM Do YYYY, h:mm:ss a');
+      this.sql.InsertAphoto(this.missions[this.missioninfo].id, fileName, image, mydate);
+      console.log("image inserted successfully");
+    });
+  }
 
   continue_mission(mission , i){
     let obj = {
@@ -210,25 +227,6 @@ startRecord(){ // for android only
     }
     this.navCtrl.push('ModesPage',obj);
   }
-
-  // -------------SqlLite TODO -----------------//
-
-
-// -------------- reading a file ------------------------//
-/*     readAfile(mission : FileEntry ) : any  {
-
-      mission.file((file)=>{
-        var reader = new FileReader();
-        reader.onloadend = function(){
-
-          console.log("Successful file read: " + this.result);
-          return this.result; // return text result of file
-        };
-        reader.readAsText(file);
-      },err=>{
-        console.log("error reading your file")
-      });
-    } */
 
 
   
